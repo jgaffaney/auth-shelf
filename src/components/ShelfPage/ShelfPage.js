@@ -19,7 +19,9 @@ function ShelfPage() {
     <div className="container">
       <h2>Shelf</h2>
       <ShelfList />
-      <Button onClick={() => history.push('/addItem')}>Add Item</Button>
+      <Button 
+        onClick={() => history.push('/addItem')}
+        variant='outlined' >Add Item</Button>
     </div>
   );
 }

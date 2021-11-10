@@ -2,11 +2,13 @@ import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import FormControl from '@mui/material/FormControl/FormControl';
 import { TextField, Button } from '@mui/material';
+import { useHistory } from 'react-router';
 
 function AddItemForm() {
 
     // declare hooks
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // declare a default item to keep things clean
     const defaultNewItem = {
@@ -18,7 +20,7 @@ function AddItemForm() {
     const [newItem, setNewItem] = useState(defaultNewItem)
 
     const handleSubmit = () => {
-        dispatch({type: 'ADD_ITEM', payload: newItem})
+        dispatch({type: 'ADD_ITEM', payload: {newItem, history}})
     }
 
     return(
