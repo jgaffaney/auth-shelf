@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+
 function* fetchShelf() {
     try{
         const response = yield axios.get('/api/shelf');
@@ -13,8 +14,10 @@ function* fetchShelf() {
 
 function* addItem(action) {
     try{
-        yield axios.post('/api/shelf', action.payload)
+        const {history} = action.payload
+        yield axios.post('/api/shelf', action.payload.newItem)
         yield put({type: 'FETCH_SHELF'})
+        history.push('/shelf')
     } catch (err) {
         console.log('Error on addItem: ', err);
         yield put({type: 'ADD_ERROR'})

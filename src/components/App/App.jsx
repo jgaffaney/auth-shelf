@@ -19,6 +19,7 @@ import ShelfPage from '../ShelfPage/ShelfPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AddItemForm from '../AddItemForm/AddItemForm';
 
 import './App.css';
 
@@ -60,6 +61,12 @@ function App() {
             <UserPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            exact
+            path='/addItem'
+          >
+            <AddItemForm />
+          </ProtectedRoute>  
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
