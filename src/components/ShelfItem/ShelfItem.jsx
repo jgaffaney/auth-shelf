@@ -1,29 +1,25 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import Card from "@mui/material/Card";
+import { useSelector } from "react-redux";
+import { CardActions } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+import DeleteItemBttn from "../DeleteItemBttn/DeleteItemBttn";
 
-function ShelfItem({item}) {
+function ShelfItem({ item }) {
+  const activeUser = useSelector((store) => store.user.id);
 
-    console.log(item.description);
-    return (
-        <Card sx={{ maxWidth: 345, m:1, p:2 }}>
-
-        <CardMedia
-          height="250"
-          
-        />
-        <CardContent>
-            <img src={item.image_url} alt={item.description} />
-          <Typography variant="body2" color="text.secondary">
+  return (
+    <Card sx={{ maxWidth: 345, m: 1, p: 2 }}>
+      <CardContent>
+        <img src={item.image_url} alt={item.description} />
+        <Typography variant="body2" color="text.secondary">
           {item.description}
-          </Typography>
-        </CardContent>
-      
-      </Card>
-
-    );
-};
+        </Typography>
+      </CardContent>
+      <CardActions>
+        {activeUser === item.user_id && <DeleteItemBttn item_id={item.id} />}
+      </CardActions>
+    </Card>
+  );
+}
 export default ShelfItem;
-
-
