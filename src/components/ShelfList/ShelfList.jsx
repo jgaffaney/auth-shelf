@@ -5,7 +5,6 @@ function ShelfList() {
 
   return (
     <div>
-      <p>ShelfList</p>
       {shelf.map((item) => {
         return <ShelfItem key={item.id} item={item} />;
       })}
