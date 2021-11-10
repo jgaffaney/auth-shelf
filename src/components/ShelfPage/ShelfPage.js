@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import AddItemForm from '../AddItemForm/addItemForm';
+import AddItemForm from '../AddItemForm/AddItemForm';
 import ShelfList from '../ShelfList/ShelfList';
+import { Button } from '@mui/material';
+import {useHistory} from 'react-router-dom';
 
 function ShelfPage() {
+
+  // declare hook functions
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,7 +19,7 @@ function ShelfPage() {
     <div className="container">
       <h2>Shelf</h2>
       <ShelfList />
-      <AddItemForm />
+      <Button onClick={() => history.push('/addItem')}>Add Item</Button>
     </div>
   );
 }

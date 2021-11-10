@@ -31,12 +31,14 @@ function AddItemForm() {
                 id='newItem' 
                 value={newItem.description} 
                 onChange={(e)=>{setNewItem({...newItem, description: (e.target.value)})}}/>
+                <br />
                 <TextField 
                 label='imageURL' 
                 id='newURL' 
                 value={newItem.image_url} 
                 onChange={(e)=>{setNewItem({...newItem, image_url: (e.target.value)})}}/>
-                <Button onClick={handleSubmit}>Add Item to Shelf</Button>
+                <br /><br />
+                <Button variant="outlined" onClick={handleSubmit}>Add to Shelf</Button>
             </FormControl>
         </div>
     )
