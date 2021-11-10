@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import ShelfItem from '../ShelfItem/ShelfItem'
 
 function ShelfList() {
   const shelf = useSelector((store) => store.shelf);
@@ -6,7 +7,7 @@ function ShelfList() {
   return (
     <div>
       {shelf?.map((item) => {
-        // return <ShelfItem key={item.id} item={item} />;
+        return <ShelfItem key={item.id} item={item} />;
       })}
     </div>
   );
