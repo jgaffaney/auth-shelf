@@ -24,15 +24,48 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
-});
+  const item = req.body;
+  const queryText = `
+  INSERT INTO item("description", "image_url", "user_id")
+  VALUES($1, $2, $3);
+  `;
+  const values = [item.description, item.image_url, req.user.id]
+  pool.query(queryText, values)
+      .then(response => {
+        res.sendStatus(201);
+      }).catch(err => {
+        console.log('Error on post: ', err);
+        res.sendStatus(500);
+})})
 
 /**
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
   // endpoint functionality
+  let itemId = req.params.id;
+  let userId = req.user.id;
+
+
+  const queryText = `
+    DELETE FROM "item"
+    WHERE "id" = $1
+    AND "user_id" = $2;
+  `;
+
+  const values = [itemId, userId];
+
+  pool.query(queryText, values)
+    .then((result) => {
+      console.log(`Delete Successful!`);
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log(`/shelf delete error!`, err);
+      res.sendStatus(500);
+    })
+
 });
 
 /**
