@@ -20,7 +20,11 @@ function AddItemForm() {
     const [newItem, setNewItem] = useState(defaultNewItem)
 
     const handleSubmit = () => {
-        dispatch({type: 'ADD_ITEM', payload: {newItem, history}})
+        if(!newItem.description) {
+            alert('A description must be provided')
+        } else {
+            dispatch({type: 'ADD_ITEM', payload: {newItem, history}})
+        }
     }
 
     return(
@@ -28,7 +32,7 @@ function AddItemForm() {
             <h1>Add Item</h1>
             <FormControl onSubmit={handleSubmit}>
                 <TextField
-                required
+                required = {true}
                 label='Item' 
                 id='newItem' 
                 value={newItem.description} 
