@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddItemForm from '../AddItemForm/AddItemForm';
+import EditItemForm from '../EditItemForm/EditItemForm';
 
 import './App.css';
 
@@ -67,6 +68,14 @@ function App() {
           >
             <AddItemForm />
           </ProtectedRoute>  
+          
+          <ProtectedRoute
+            exact
+            path='/editItem/:id'
+          >
+            <EditItemForm />
+          </ProtectedRoute>  
+
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

@@ -36,8 +36,11 @@ function* deleteItem(action) {
 
 function* editItem(action) {
     try{
-        yield axios.put(`/api/shelf/${action.payload}`);
+        
+        // const {history} = action.payload;
+        yield axios.put(`/api/shelf/${action.payload.editItem.id}`, {item:action.payload.editItem});
         yield put({type: 'FETCH_SHELF'})
+        // history.push('/shelf')
     } catch (err) {
         console.log('Error on edit:', err);
         yield put({type: 'EDIT_ERROR'})        

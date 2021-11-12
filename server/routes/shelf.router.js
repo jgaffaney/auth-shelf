@@ -73,16 +73,16 @@ router.delete('/:id', (req, res) => {
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
-  const item = req.body;
+  const item = req.body.item;
   let itemId = req.params.id;
 
 
 
   const queryText = `
-  UPDATE "ITEM" SET 
-  "description"= ($1),
-  "image_url" = ($2),
-  WHERE "item_id" = ($3)
+  UPDATE "item" SET 
+  "description"= $1,
+  "image_url" = $2
+  WHERE "id" = $3;
   `;
 
   const values = [item.description, item.image_url, itemId]
