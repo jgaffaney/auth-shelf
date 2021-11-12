@@ -34,10 +34,21 @@ function* deleteItem(action) {
     }
 }
 
+function* editItem(action) {
+    try{
+        yield axios.put(`/api/shelf/${action.payload}`);
+        yield put({type: 'FETCH_SHELF'})
+    } catch (err) {
+        console.log('Error on edit:', err);
+        yield put({type: 'EDIT_ERROR'})        
+    }
+}
+
 function* shelfSaga () {
     yield takeLatest('FETCH_SHELF', fetchShelf);
     yield takeLatest('ADD_ITEM', addItem);
-    yield takeLatest('DELETE_ITEM', deleteItem)
+    yield takeLatest('DELETE_ITEM', deleteItem);
+    yield takeLatest('EDIT_ITEM', editItem)
 }
 
 export default shelfSaga;

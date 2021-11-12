@@ -71,8 +71,30 @@ router.delete('/:id', (req, res) => {
 /**
  * Update an item if it's something the logged in user added
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  const item = req.body;
+  let itemId = req.params.id;
+
+
+
+  const queryText = `
+  UPDATE "ITEM" SET 
+  "description"= ($1),
+  "image_url" = ($2),
+  WHERE "item_id" = ($3)
+  `;
+
+  const values = [item.description, item.image_url, itemId]
+
+  pool.query(queryText, values)
+  .then((result) => {
+    console.log('Update Successful!');
+    res.sendStatus(200);    
+  }).catch((err) => {
+    console.log('/shelf update error', err);
+    res.sendStatus(500);
+  })
 });
 
 /**
