@@ -6,7 +6,7 @@ const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 /**
  * Get all of the items on the shelf
  */
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/', (req, res) => {
 
   const queryText = `
     SELECT * FROM "item";
@@ -20,6 +20,21 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     })
 });
+
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  const id = req.user.id
+  const queryText = `
+  SELECT * FROM "item"
+  WHERE "user_id" = $1;
+  `
+  pool.query(queryText, [id])
+      .then(response => {
+        res.send(response.rows)
+      }).catch (err => {
+        console.log('Error on user GET: ', err);
+        res.sendStatus(500);
+      })
+})
 
 /**
  * Add an item for the logged in user to the shelf
