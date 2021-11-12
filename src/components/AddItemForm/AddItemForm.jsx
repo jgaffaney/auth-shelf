@@ -1,8 +1,11 @@
-import {useDispatch} from 'react-redux';
-import {useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import FormControl from '@mui/material/FormControl/FormControl';
 import { TextField, Button } from '@mui/material';
 import { useHistory } from 'react-router';
+//FILESTACK import
+//may need to 'npm install filestack-react --force' and apiKey
+// import { PickerInline } from 'filestack-react';
 
 function AddItemForm() {
 
@@ -17,32 +20,60 @@ function AddItemForm() {
     }
 
     // declare a local state to hold new Item inputs until dispatch
-    const [newItem, setNewItem] = useState(defaultNewItem)
+    const [newItem, setNewItem] = useState(defaultNewItem);
+
+//create local state to trigger conditional rendering on filestack uploader
+    // const [needUpload, setNeedUpload] = useState(true);
 
     const handleSubmit = () => {
-        if(!newItem.description) {
+        if (!newItem.description) {
             alert('A description must be provided')
         } else {
-            dispatch({type: 'ADD_ITEM', payload: {newItem, history}})
+            dispatch({ type: 'ADD_ITEM', payload: { newItem, history } })
         }
     }
 
-    return(
+//function to handle when image has finished uploading.
+//set the url of newItem to the URL that was given by the upload
+//trigger the conditional rendering to show img uploaded and remove filestack from dom
+    // const handleUploadFinished = (res) => {
+    //     setNewItem({ ...newItem, image_url: (res.filesUploaded[0].url) });
+    //     setNeedUpload(false);
+    // }
+
+
+    return (
         <div>
             <h1>Add Item</h1>
             <FormControl onSubmit={handleSubmit}>
                 <TextField
-                required = {true}
-                label='Item' 
-                id='newItem' 
-                value={newItem.description} 
-                onChange={(e)=>{setNewItem({...newItem, description: (e.target.value)})}}/>
+                    required={true}
+                    label='Item'
+                    id='newItem'
+                    value={newItem.description}
+                    onChange={(e) => { setNewItem({ ...newItem, description: (e.target.value) }) }} />
                 <br />
-                <TextField 
-                label='imageURL' 
-                id='newURL' 
-                value={newItem.image_url} 
-                onChange={(e)=>{setNewItem({...newItem, image_url: (e.target.value)})}}/>
+                {/* CONDITIONAL RENDERING:
+                    If no image is uploaded, show filestack uploader otherwise, remove filestack uploader and show the uploaded image on the dom */}
+                {/* {needUpload
+                    ? <div>
+                        <h3>Upload an Image</h3>
+                        <PickerInline
+                            apikey='YourOwnAPIKey'
+                            onSuccess={(res) => console.log(res)}
+                            onUploadDone={(res) => handleUploadFinished(res)}
+                        />
+                    </div>
+                    : <>
+                        <h3>Uploaded Image</h3>
+                        <img src={newItem.image_url} /> <br />
+                        <button onClick={() => setNeedUpload(true)}>Change Image</button>
+                    </>} */}
+                <TextField
+                    label='imageURL'
+                    id='newURL'
+                    value={newItem.image_url}
+                    onChange={(e) => { setNewItem({ ...newItem, image_url: (e.target.value) }) }} />
                 <br /><br />
                 <Button variant="outlined" onClick={handleSubmit}>Add to Shelf</Button>
             </FormControl>
