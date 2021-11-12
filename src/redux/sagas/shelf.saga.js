@@ -34,6 +34,20 @@ function* deleteItem(action) {
     }
 }
 
+
+function* editItem(action) {
+    try{
+        
+        const history = action.payload.history;
+        yield axios.put(`/api/shelf/${action.payload.editItem.id}`, {item:action.payload.editItem});
+        yield put({type: 'FETCH_SHELF'})
+        history.push('/shelf/all')
+    } catch (err) {
+        console.log('Error on edit:', err);
+        yield put({type: 'EDIT_ERROR'})        
+    }
+}
+
 function* fetchUserShelf(action) {
     try{
         const response = yield axios.get(`/api/shelf/${action.payload}`)
@@ -41,13 +55,15 @@ function* fetchUserShelf(action) {
     } catch (err) {
         console.log('Error on user GET in saga: ', err);
         yield put({type:'USER_SHELF_ERROR'})
+
     }
 }
 
 function* shelfSaga () {
     yield takeLatest('FETCH_SHELF', fetchShelf);
     yield takeLatest('ADD_ITEM', addItem);
-    yield takeLatest('DELETE_ITEM', deleteItem)
+    yield takeLatest('DELETE_ITEM', deleteItem);
+    yield takeLatest('EDIT_ITEM', editItem);
     yield takeLatest('FETCH_USER_SHELF', fetchUserShelf)
 }
 

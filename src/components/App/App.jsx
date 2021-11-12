@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddItemForm from '../AddItemForm/AddItemForm';
+import EditItemForm from '../EditItemForm/EditItemForm';
 
 import './App.css';
 
@@ -67,7 +68,15 @@ function App() {
             path='/addItem'
           >
             <AddItemForm />
-          </ProtectedRoute>  
+          </ProtectedRoute> 
+
+          
+          <ProtectedRoute
+            exact
+            path='/editItem/:id'
+          >
+            <EditItemForm />
+          </ProtectedRoute> 
           
           <ProtectedRoute
             exact
