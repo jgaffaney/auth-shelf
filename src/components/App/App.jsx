@@ -48,6 +48,7 @@ function App() {
           >
             <AboutPage />
           </Route>
+          
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -67,10 +68,10 @@ function App() {
           >
             <AddItemForm />
           </ProtectedRoute>  
+          
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
             exact
-            path="/shelf"
+            path="/shelf/:id"
           >
             <ShelfPage />
           </ProtectedRoute>
@@ -88,7 +89,13 @@ function App() {
               <LoginPage />
             }
           </Route>
-
+          <Route
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/shelf/all"
+          >
+            <ShelfPage />
+          </Route>
           <Route
             exact
             path="/registration"

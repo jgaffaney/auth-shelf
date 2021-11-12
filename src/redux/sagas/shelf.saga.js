@@ -34,10 +34,21 @@ function* deleteItem(action) {
     }
 }
 
+function* fetchUserShelf(action) {
+    try{
+        const response = yield axios.get(`/api/shelf/${action.payload}`)
+        yield put({type: 'SET_SHELF', payload: response.data})
+    } catch (err) {
+        console.log('Error on user GET in saga: ', err);
+        yield put({type:'USER_SHELF_ERROR'})
+    }
+}
+
 function* shelfSaga () {
     yield takeLatest('FETCH_SHELF', fetchShelf);
     yield takeLatest('ADD_ITEM', addItem);
     yield takeLatest('DELETE_ITEM', deleteItem)
+    yield takeLatest('FETCH_USER_SHELF', fetchUserShelf)
 }
 
 export default shelfSaga;
