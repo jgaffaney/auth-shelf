@@ -1,3 +1,7 @@
 .listGrid {
     border: 1px black;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+    width: 80%;
 }
