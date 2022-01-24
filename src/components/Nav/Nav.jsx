@@ -12,7 +12,7 @@ function Nav() {
       <Link to="/home">
         <h2 className="nav-title">Auth Shelf</h2>
       </Link>
-      <div>
+      <div className="navLinks">
         {/* If no user is logged in, show these links */}
         {user.id === null &&
           // If there's no user, show login/registration links

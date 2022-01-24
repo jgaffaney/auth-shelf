@@ -22,6 +22,10 @@ function ShelfPage() {
     history.push(`/shelf/${user.id}`)
   }
 
+  const showShelf = () => {
+    history.push(`/shelf/all`)
+  }
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_SHELF' })
@@ -29,19 +33,30 @@ function ShelfPage() {
 
   return (
     <div className="container">
-      <h2>Shelf</h2>
-      <ShelfList />
-      <Button
-        onClick={() => history.push('/addItem')}
-        variant='outlined' >
-        Add Item
-      </Button>
-      {(id.id === 'all') &&
+      <h2>{user.username}'s Shelf</h2>
+      <div>
         <Button
-          onClick={handleClick}>
-          Go to My Shelf
+          onClick={() => history.push('/addItem')}
+          variant='outlined' >
+          Add Item
         </Button>
-      }
+
+        { id.id === 'all' ?
+          <Button
+            onClick={handleClick}
+            variant='outlined'>
+            Go to My Shelf
+          </Button>
+            :
+          <Button
+            onClick={showShelf}
+            variant='outlined'>
+            Show Shelf
+          </Button>
+          
+        }
+      </div>
+        <ShelfList />
     </div>
   );
 }

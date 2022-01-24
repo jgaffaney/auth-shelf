@@ -1,14 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import FormControl from '@mui/material/FormControl/FormControl';
 import { TextField, Button } from '@mui/material';
 import { useHistory } from 'react-router';
+import './AddItemForm.css'
 //FILESTACK import
 //may need to 'npm install filestack-react --force' and apiKey
 // import { PickerInline } from 'filestack-react';
 
 function AddItemForm() {
-
+    const user = useSelector(store => store.user);
     // declare hooks
     const dispatch = useDispatch();
     const history = useHistory();
@@ -27,9 +28,10 @@ function AddItemForm() {
 
     const handleSubmit = () => {
         if (!newItem.description) {
-            alert('A description must be provided')
+            alert('A description must be provided');
         } else {
-            dispatch({ type: 'ADD_ITEM', payload: { newItem, history } })
+            dispatch({ type: 'ADD_ITEM', payload: { newItem } });
+            history.push(`/shelf/${user.id}`);
         }
     }
 
@@ -43,7 +45,7 @@ function AddItemForm() {
 
 
     return (
-        <div>
+        <div className="container">
             <h1>Add Item</h1>
             <FormControl onSubmit={handleSubmit}>
                 <TextField
